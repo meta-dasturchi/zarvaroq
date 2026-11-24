@@ -1,0 +1,61 @@
+# =====================================================================
+# ZARVARAQ — netlify.toml
+# Netlify sozlamalari: sayt papkasi, funksiyalar, API yo'llari, xavfsizlik sarlavhalari.
+# =====================================================================
+
+[build]
+  publish = "."                       # sayt fayllari loyiha ildizida
+  functions = "netlify/functions"     # order.js, telegram.js, auth.js
+  command = "echo 'ZARVARAQ: build kerak emas'"
+
+[functions]
+  node_bundler = "esbuild"            # ../../books.js va ../lib/* avtomatik qo'shiladi
+  included_files = ["books.js", "netlify/lib/**"]
+
+# Chiroyli API manzillari: /api/order → /.netlify/functions/order
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+  force = true
+
+# Server kodlari va konfiguratsiya fayllarini brauzerdan yopish
+[[redirects]]
+  from = "/netlify/*"
+  to = "/index.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/package.json"
+  to = "/index.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/package-lock.json"
+  to = "/index.html"
+  status = 404
+  force = true
+
+# Xavfsizlik sarlavhalari (XSS, clickjacking va boshqalardan himoya)
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains"
+    Content-Security-Policy = "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://covers.openlibrary.org https://*.archive.org https://archive.org; connect-src 'self' https://openlibrary.org; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'"
+
+# Statik fayllarni keshlash
+[[headers]]
+  for = "/*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=3600, must-revalidate"
+
+[[headers]]
+  for = "/*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=3600, must-revalidate"

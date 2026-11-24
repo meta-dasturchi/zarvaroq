@@ -1,0 +1,212 @@
+/* =====================================================================
+   ZARVARAQ — responsive.css
+   Tekshirilgan kengliklar: 320, 375, 390, 430, 768, 1024, 1280, 1440, 1920 px
+   Desktop-first: katta ekrandan kichigiga qarab.
+   ===================================================================== */
+
+/* ---------- ≥ 1600px (1920 monitorlar) ---------- */
+@media (min-width: 1600px) {
+  :root { --container: 1440px; }
+  .book-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .book-row { grid-auto-columns: calc((100% - 5 * 24px) / 6); }
+  .hero { padding: 96px 0 120px; }
+}
+
+/* ---------- ≤ 1440px ---------- */
+@media (max-width: 1440px) {
+  .nav-links a { padding: 8px 9px; font-size: .9rem; }
+  .nav { gap: 14px; }
+}
+
+/* ---------- ≤ 1300px: navbar hamburgerga aylanadi ---------- */
+@media (max-width: 1300px) {
+  /* backdrop-filter ichidagi position:fixed elementni header bilan cheklab qo'yadi —
+     mobil menyu to'liq balandlikda ochilishi uchun o'chiramiz */
+  .header { backdrop-filter: none; -webkit-backdrop-filter: none; background: var(--bg); }
+  .burger { display: inline-grid; }
+  .nav-links {
+    position: fixed; top: 0; right: 0; bottom: 0; z-index: 120; width: min(320px, 86vw);
+    flex-direction: column; align-items: stretch; gap: 2px; margin: 0; padding: 90px 20px 24px;
+    background: var(--surface); box-shadow: var(--shadow-lg); overflow-y: auto;
+    display: none; /* yopiq menyu sahifa kengligiga ta'sir qilmasligi uchun (gorizontal scroll yo'q) */
+  }
+  .nav-links.open { display: flex; animation: drawerIn .4s var(--ease) both; }
+  .nav-links a { display: block; padding: 14px 16px; font-size: 1.02rem; border-radius: 12px; color: var(--text); }
+  .nav-links a::after { display: none; }
+  .nav-links a:hover, .nav-links a.active { background: var(--green-100); color: var(--primary); }
+  .nav-links li { opacity: 0; transform: translateX(20px); transition: opacity .3s, transform .3s var(--ease); }
+  .nav-links.open li { opacity: 1; transform: none; }
+  .nav-links.open li:nth-child(2) { transition-delay: .04s; } .nav-links.open li:nth-child(3) { transition-delay: .08s; }
+  .nav-links.open li:nth-child(4) { transition-delay: .12s; } .nav-links.open li:nth-child(5) { transition-delay: .16s; }
+  .nav-links.open li:nth-child(6) { transition-delay: .2s; } .nav-links.open li:nth-child(7) { transition-delay: .24s; }
+  .nav-backdrop { display: block; position: fixed; inset: 0; z-index: 99; background: rgba(10,18,14,.45); opacity: 0; pointer-events: none; transition: opacity .3s; }
+  .nav-backdrop.show { opacity: 1; pointer-events: auto; }
+  .nav-actions { margin-left: auto; }
+  .burger { z-index: 130; }
+}
+
+/* ---------- ≤ 1100px ---------- */
+@media (max-width: 1100px) {
+  .book-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .book-row { grid-auto-columns: calc((100% - 3 * 20px) / 4); gap: 20px; }
+  .cat-grid { grid-template-columns: repeat(4, 1fr); }
+  .toolbar { grid-template-columns: 1fr 1fr 1fr; }
+  .toolbar .field-search { grid-column: 1 / -1; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .why-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ---------- ≤ 1024px (planshet landshaft) ---------- */
+@media (max-width: 1024px) {
+  .hero-inner { gap: 24px; }
+  .hero-visual { height: 400px; transform: scale(.88); }
+  .book-detail { grid-template-columns: 240px 1fr; gap: 28px; }
+  .similar-list { grid-template-columns: repeat(4, 1fr); }
+  .similar-list > :nth-child(5) { display: none; }
+}
+
+/* ---------- ≤ 900px ---------- */
+@media (max-width: 900px) {
+  .hero { padding: 40px 0 64px; }
+  .hero-inner { grid-template-columns: 1fr; text-align: center; }
+  .hero-lead { margin-inline: auto; }
+  .hero-cta, .hero-stats { justify-content: center; }
+  .hero-title em { margin-inline: auto; }
+  .hero-visual { order: -1; height: 300px; transform: none; margin: 0; }
+  .hero-ring { width: 280px; height: 280px; }
+  .hero-books { transform: scale(.7); }
+  .chip-1 { top: 20px; right: calc(50% - 190px); }
+  .chip-2 { bottom: 20px; left: calc(50% - 190px); }
+  .book-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+  .book-row { grid-auto-columns: calc((100% - 2 * 18px) / 3); gap: 18px; }
+  .cat-grid { grid-template-columns: repeat(3, 1fr); }
+  .test-grid { grid-template-columns: 1fr; max-width: 600px; margin-inline: auto; }
+  .newsletter { grid-template-columns: 1fr; padding: 36px 28px; text-align: center; }
+  .about-grid { grid-template-columns: 1fr; gap: 40px; }
+  .about-visual { max-width: 420px; margin-inline: auto; }
+  .checkout-grid { grid-template-columns: 1fr; }
+  .order-summary { position: static; order: -1; }
+  .order-summary ul { max-height: 200px; }
+}
+
+/* ---------- ≤ 768px (planshet portret) ---------- */
+@media (max-width: 768px) {
+  :root { --header-h: 64px; }
+  .section { padding: 56px 0; }
+  .section-head { flex-direction: column; align-items: flex-start; gap: 8px; margin-bottom: 24px; }
+  .section-head.center { align-items: center; }
+  .page-head { padding: 36px 0 24px; }
+  .book-detail { grid-template-columns: 1fr; }
+  .book-detail > .book-cover { max-width: 240px; margin: 0 auto; }
+  .bd-head { text-align: center; }
+  .bd-price, .bd-actions { justify-content: center; }
+  .specs { grid-template-columns: repeat(2, 1fr); }
+  .modal-panel { padding: 26px 20px; }
+  .contact-grid { grid-template-columns: 1fr; }
+  .toolbar { grid-template-columns: 1fr 1fr; padding: 14px; }
+  .toolbar #catReset { grid-column: 1 / -1; }
+  .toasts { left: 16px; right: 16px; bottom: auto; top: 76px; max-width: none; }
+  .to-top { bottom: 84px; left: auto; right: 16px; }
+}
+
+/* ---------- ≤ 640px ---------- */
+@media (max-width: 640px) {
+  .container { padding-inline: 16px; }
+  .auth-btn span { display: none; }
+  .auth-btn { padding: 0; width: 42px; height: 42px; border-radius: 50%; }
+  .book-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .book-row { grid-auto-columns: 46%; gap: 12px; }
+  .book-card { padding: 8px; border-radius: 14px; }
+  .book-desc { display: none; }
+  .book-title { font-size: .95rem; }
+  .card-actions { grid-template-columns: 1fr; }
+  .card-actions .btn { min-height: 40px; }
+  .card-actions .btn-buy { display: none; }
+  .cat-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .cat-card { padding: 16px; }
+  .why-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr; gap: 28px; }
+  .footer-bottom { flex-direction: column; text-align: center; }
+  .form-row { grid-template-columns: 1fr; gap: 0; }
+  .drawer-panel { max-width: 100%; }
+  .modal { padding: 0; place-items: end center; }
+  .modal-panel { border-radius: 22px 22px 0 0; max-height: 94vh; max-height: 94dvh; animation-name: sheetIn; }
+  .modal.closing .modal-panel { animation-name: sheetOut; }
+  .modal-sm .modal-panel, .modal-panel.modal-sm { border-radius: 22px 22px 0 0; }
+  .similar-list { grid-template-columns: repeat(3, 1fr); }
+  .similar-list > :nth-child(n+4) { display: none; }
+  .search-overlay { padding-top: 16px; }
+  .newsletter-form { flex-direction: column; border-radius: 18px; }
+  .newsletter-form .btn { width: 100%; }
+  .hero-stats { gap: 22px; }
+  .about-stats { gap: 22px; }
+}
+@keyframes sheetIn { from { transform: translateY(100%); } to { transform: none; } }
+@keyframes sheetOut { to { transform: translateY(100%); } }
+
+/* ---------- ≤ 480px: tema va kirish tugmalari mobil menyuga ko'chadi ---------- */
+@media (max-width: 480px) {
+  .nav-actions .theme-toggle, .nav-actions .auth-btn { display: none; }
+  .nav-links li.nav-extra { display: grid; gap: 10px; margin-top: 18px; padding-top: 18px; border-top: 1px solid var(--border); }
+}
+
+/* ---------- ≤ 430px (iPhone Pro Max) ---------- */
+@media (max-width: 430px) {
+  .logo { font-size: 1.1rem; gap: 7px; }
+  .logo-mark svg { width: 30px; height: 30px; }
+  .nav-actions { gap: 2px; }
+  .icon-btn { width: 38px; height: 38px; }
+  .icon-btn svg { width: 20px; height: 20px; }
+  .auth-btn { width: 38px; height: 38px; }
+  .lang-select select { padding: 7px 22px 7px 9px; background-position: right 6px center; font-size: .78rem; }
+  .hero-title { font-size: 2.25rem; }
+  .hero-cta .btn { flex: 1 1 100%; }
+  .hero-visual { height: 250px; }
+  .hero-ring { width: 230px; height: 230px; }
+  .hero-books { transform: scale(.58); }
+  .chip-1 { right: 4px; top: 6px; } .chip-2 { left: 4px; bottom: 6px; }
+  .toolbar { grid-template-columns: 1fr; }
+  .chips { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 4px; }
+  .chip { flex-shrink: 0; }
+  .specs { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .bd-actions .btn { flex: 1 1 100%; }
+  .drawer-head, .drawer-body, .drawer-foot { padding-inline: 16px; }
+}
+
+/* ---------- ≤ 390px / 375px ---------- */
+@media (max-width: 390px) {
+  .lang-select select { padding: 7px 8px; background-image: none; }
+  .book-card { padding: 7px; }
+  .price { font-size: 1rem; }
+  .cat-name { font-size: .95rem; }
+}
+
+/* ---------- ≤ 360px (320px gacha kichik telefonlar) ---------- */
+@media (max-width: 360px) {
+  .container { padding-inline: 12px; }
+  .logo-text { font-size: 1rem; letter-spacing: .03em; }
+  .logo-mark { display: none; }
+  .icon-btn, .auth-btn { width: 34px; height: 34px; }
+  .icon-btn svg { width: 18px; height: 18px; }
+  .lang-select select { font-size: .72rem; padding: 6px; }
+  .book-grid { gap: 8px; }
+  .book-row { grid-auto-columns: 60%; }
+  .book-title { font-size: .88rem; }
+  .book-author { font-size: .78rem; }
+  .card-actions .btn { font-size: .75rem; }
+  .hero-title { font-size: 1.95rem; }
+  .hero-stats b { font-size: 1.6rem; }
+  .cat-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .cat-card { padding: 12px; }
+  .cat-icon { font-size: 1.4rem; }
+  .specs { grid-template-columns: 1fr; }
+  .cart-item { grid-template-columns: 52px 1fr; gap: 10px; }
+  .cart-item .ci-cover { width: 52px; }
+  .newsletter { padding: 28px 18px; }
+}
+
+/* Sichqonchasiz (touch) qurilmalarda hover effektlarini yumshatish */
+@media (hover: none) {
+  .book-card:hover { transform: none; box-shadow: none; }
+  .cover-overlay { display: none; }
+}

@@ -1,0 +1,16 @@
+{
+  "name": "zarvaraq",
+  "version": "1.0.0",
+  "private": true,
+  "description": "ZARVARAQ — premium onlayn kitob do'koni (HTML, CSS, Vanilla JS, Netlify Functions, Telegram bot)",
+  "scripts": {
+    "dev": "netlify dev",
+    "test": "node tests/run-tests.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@netlify/blobs": "^8.1.0"
+  }
+}
